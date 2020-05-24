@@ -15,31 +15,47 @@ const list = {
     },
 };
 let newList = {};
+
 let reverseList = function (head) {
-    let newList = head; // 克隆整个树
-    let i = 0;
-
-    function ListNode(oldList) {
-        /* 
-            此处用于递归;
-            上一个节点prev,下一个阶段next;
-        */
-        prev = oldList.val;
-        // console.log("oldList:", oldList, head)
-        if (oldList.next) {
-            next = oldList.next;
-            oldList.val = oldList.next.val; // 下一个节点给上一个节点
-            oldList.next.val = prev;
-            ListNode(next);
-            return oldList
-        }
-        console.log("检查是否跳出循环！！！！！")
-    }
-
-    while (i < 4) {
-        console.log(i)
-        ListNode(newList);
+    console.log(111, head)
+    let newList = null; // 克隆整个树
+    while (head) {
+        next = head.next;
+        head.next = newList; // head.next结果 => {val:1,next:null}
+        newList = head;
+        head = next;
     }
     return newList
 };
+
 console.log(reverseList(list))
+
+/*
+ let reverseList = function (head) {
+    let newList = null; // 克隆整个树
+    function ListNode(oldList) {
+        if (oldList == null) {
+            return
+        }
+        next = oldList.next; // 此时val是1
+        oldList.next = newList;
+        newList = oldList;
+        ListNode(next);
+    }
+    ListNode(head)
+    return newList
+};
+ */
+
+
+// function ListNode(oldList) {
+//     if (oldList == null) {
+//         return
+//     }
+//     next = oldList.next; // 此时val是1
+//     oldList.next = newList;
+//     newList = oldList;
+//     ListNode(next);
+// }
+// ListNode(head)
+// return newList
